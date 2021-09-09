@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "acad_usage_measurement_client", "acad_usage_measurement_client.csproj", "{A8586AA3-25DD-45A6-A14E-2574F6AB87F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8586AA3-25DD-45A6-A14E-2574F6AB87F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8586AA3-25DD-45A6-A14E-2574F6AB87F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8586AA3-25DD-45A6-A14E-2574F6AB87F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8586AA3-25DD-45A6-A14E-2574F6AB87F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D1B9160-38BD-4F68-BD96-8FEE9678748F}
+	EndGlobalSection
+EndGlobal
