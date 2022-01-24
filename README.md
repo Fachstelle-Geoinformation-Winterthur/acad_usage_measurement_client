@@ -1,6 +1,11 @@
 # Usage Measurement Client for AutoCAD
 This is a .NET plug-in for AutoCAD that makes it possible for admins to centrally measure the usage times of AutoCAD installations in a corporate network. The storage of the usage data is done anonymously, since it only stores usage data of groups in the database, not of individuals.
 
+## Motivation
+After the switch of Autodesk products to named user licensing, it is possible that the usage statistics offered by Autodesk are no longer sufficient for the needs of some organizations. The new usage statistics are only available in the temporal resolution of a whole day. This means that it is only measured whether the Autodesk product was opened once on a certain day.
+
+However, in some cases measurements with a higher temporal resolution are required. For example, this is the case when the departments of an organization want to share the license costs fairly among themselves based on the actual usage. This system solves exactly that problem.
+
 ## How to operate
 This plug-in only works in tandem with a web service that is also provided as open-source in another repository, which is:
 
