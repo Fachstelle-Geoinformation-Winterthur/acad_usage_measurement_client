@@ -18,7 +18,7 @@ namespace win.acad_usage_measurement
 
         public void Initialize()
         {
-            winUsageStatistics();
+            winUsageStatisticsInitialize();
         }
 
         public void Terminate()
@@ -26,54 +26,34 @@ namespace win.acad_usage_measurement
             throw new System.NotImplementedException();
         }
 
-        [CommandMethod("win_usage_statistics")]
-        public void winUsageStatistics()
+        public void winUsageStatisticsInitialize()
         {
-            Thread longRunningTask = new Thread(() => _winUsageStatistics());
+            Thread longRunningTask = new Thread(() => _winUsageStatisticsSendPing());
             longRunningTask.Start();
         }
 
-        private void _winUsageStatistics()
+        private void _winUsageStatisticsSendPing()
         {
 
             try
             {
-                System.Uri server1Url = null;
-                string server2UrlString = null;
+                System.Uri serverUrl = null;
                 string propsPath = Path.Combine(
                     Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                     "acad_usage_measurement_properties.txt");
 
-                bool server1UrlGood = false;
+                bool serverUrlGood = false;
                 try
                 {
                     Properties props = new Properties(propsPath);
-                    string server1UrlString = props.getValue("server1");
-                    server1UrlGood = System.Uri.TryCreate(server1UrlString,
-                        System.UriKind.Absolute, out server1Url);
-                    if (server1UrlGood)
+                    string serverUrlString = props.getValue("server");
+                    serverUrlGood = System.Uri.TryCreate(serverUrlString,
+                        System.UriKind.Absolute, out serverUrl);
+                    if (serverUrlGood)
                     {
-                        server1UrlGood = server1Url.Scheme == System.Uri.UriSchemeHttp
-                            || server1Url.Scheme == System.Uri.UriSchemeHttps;
+                        serverUrlGood = serverUrl.Scheme == System.Uri.UriSchemeHttp
+                            || serverUrl.Scheme == System.Uri.UriSchemeHttps;
                     }
-                }
-                catch (Exception ex)
-                {
-                    // do nothing
-                }
-                catch (System.IO.FileNotFoundException ex)
-                {
-                    // do nothing
-                }
-                catch (System.Exception ex)
-                {
-                    // do nothing
-                }
-
-                try
-                {
-                    Properties props = new Properties(propsPath);
-                    server2UrlString = props.getValue("server2");
                 }
                 catch (Exception ex)
                 {
@@ -141,13 +121,12 @@ namespace win.acad_usage_measurement
                         success = false;
                         try
                         {
-                            requestString = server1Url.ToString() + "/ping?username=" + System.Environment.UserName +
+                            requestString = serverUrl.ToString() + "/ping?username=" + System.Environment.UserName +
                                 "&domainname=" + System.Environment.UserDomainName + "&appcode=" +
                                 appCode + "&version=" + version + "&machinename=" + System.Environment.MachineName;
                             Task<HttpResponseMessage> httpTask = httpClient.GetAsync(requestString);
                             Thread.Sleep(timeToSleep);
                             httpTask.Wait();
-                            success = httpTask.Status == TaskStatus.RanToCompletion;
                         }
                         catch (Exception ex)
                         {
@@ -156,26 +135,6 @@ namespace win.acad_usage_measurement
                         catch (System.Exception ex)
                         {
                             // do nothing
-                        }
-                        if (!success)
-                        {
-                            try
-                            {
-                                Task<HttpResponseMessage> httpTask = httpClient.GetAsync(
-                                    server2UrlString + "/ping?username=" + System.Environment.UserName +
-                                    "&domainname=" + System.Environment.UserDomainName + "&appcode=" +
-                                    appCode + "&version=" + version);
-                                Thread.Sleep(timeToSleep);
-                                httpTask.Wait();
-                            }
-                            catch (Exception ex)
-                            {
-                                // do nothing
-                            }
-                            catch (System.Exception ex)
-                            {
-                                // do nothing
-                            }
                         }
                     }
                 }

@@ -17,12 +17,9 @@ Additionally, you need to add a properties text file. It must have the following
 
 > C:\Program Files\Autodesk\AutoCAD 2021\Plugins\acad_usage_measurement_client\acad_usage_measurement_properties.txt
 
-The properties file has to contain information on the URLs of the web service to the needs the following 
+The properties file has to contain information on the URL of the web service in the following form:
 
-> server1=https://your_server1.com/path_to_the_web_service
-> server2=https://your_server2.com/path_to_the_web_service
-
-As you can see, the plug-in even supports a failover server, if you configure it in the properties file. If you do not use a failover server, you can simple omit it in the properties file.
+> server=https://your_server.com/path_to_the_web_service
 
 ## Usable versions of AutoCAD
 This plug-in has originally been compiled for and tested with AutoCAD 2017, but it should also work out-of-the-box with all subsequent versions of AutoCAD.
